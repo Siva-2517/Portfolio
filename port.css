@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
+
 * {
     margin: 0;
     padding: 0;
@@ -27,6 +28,81 @@ body {
     background: var(--bg-color);
     color: var(--text-color);
 }
+/* ===================== LOADING PAGE ===================== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--bg-color), var(--second-bg-color));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+/* Morphing loading text */
+.loading-text {
+  font-size: 2.5rem;
+  color: var(--main-color);
+  letter-spacing: 2px;
+  z-index: 3;
+  text-transform: uppercase;
+  font-weight: 600;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+/* Glowing animation for text */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px var(--main-color),
+                 0 0 20px var(--main-color);
+  }
+  to {
+    text-shadow: 0 0 20px var(--main-color),
+                 0 0 40px var(--main-color),
+                 0 0 60px var(--main-color);
+  }
+}
+
+/* Split panels animation */
+.split {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--second-bg-color);
+  z-index: 2;
+  transition: transform 1s ease-in-out;
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* When animation triggers */
+.split.slide-left {
+  transform: translateX(-100%);
+}
+.split.slide-right {
+  transform: translateX(100%);
+}
+
+/* Fade-in main site after split */
+#content {
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body.loaded {
+  overflow: auto;
+  transition: background 0.5s ease-in-out;
+}
+
 
 section {
     min-height: 100vh;

@@ -32,3 +32,50 @@ window.onscroll = () => {
   });
 };
 
+const loadingText = document.getElementById("loadingText");
+const loader = document.getElementById("loader");
+const content = document.getElementById("content");
+const left = document.querySelector(".left");
+const right = document.querySelector(".right");
+const bar = document.querySelector(".bar");
+
+const texts = ["Loading...", "Almost Ready...", "Welcome!"];
+let index = 0;
+let progress = 0;
+
+// Morph text every second
+const textInterval = setInterval(() => {
+  loadingText.textContent = texts[index];
+  index++;
+
+  if (index === texts.length) {
+    clearInterval(textInterval);
+
+    // Split panels open after short delay
+    setTimeout(() => {
+      left.classList.add("slide-left");
+      right.classList.add("slide-right");
+    }, 500);
+
+    // Hide loader & show content
+    setTimeout(() => {
+      loader.style.display = "none";
+      content.style.display = "block";
+      document.body.classList.add("loaded");
+    }, 2000);
+  }
+}, 1000);
+
+// Progress bar animation
+const progressInterval = setInterval(() => {
+  if (progress < 100) {
+    progress += 2; // adjust speed here
+    bar.style.width = progress + "%";
+  } else {
+    clearInterval(progressInterval);
+  }
+}, 50);
+
+
+
+
